@@ -3,7 +3,7 @@
 A secure Node.js and Express-based web application that allows users to register, log in, and share secrets securely.
 
 ## Live App
-[Click here to visit the deployed app](https://secrets-app.onrender.com)
+https://secrets-app-9anw.onrender.com
 
 ## 💻 Features
 - User registration with password validation
