@@ -3,7 +3,6 @@ function togglePassword(id) {
   input.type = input.type === "password" ? "text" : "password";
 }
 
-// Registration
 document.getElementById("registerForm")?.addEventListener("submit", async (e) => {
   e.preventDefault();
   const form = new FormData(e.target);
@@ -16,12 +15,13 @@ document.getElementById("registerForm")?.addEventListener("submit", async (e) =>
   });
 
   const msg = await res.json();
-  document.getElementById("registerMsg").innerText = msg.message;
+  const msgBox = document.getElementById("registerMsg");
+  msgBox.innerText = msg.message;
+  msgBox.style.color = res.ok ? "green" : "red";
 
   if (res.ok) setTimeout(() => (window.location.href = "/login.html"), 1000);
 });
 
-// Login
 document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
   e.preventDefault();
   const form = new FormData(e.target);
@@ -34,7 +34,9 @@ document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
   });
 
   const msg = await res.json();
-  document.getElementById("loginMsg").innerText = msg.message;
+  const msgBox = document.getElementById("loginMsg");
+  msgBox.innerText = msg.message;
+  msgBox.style.color = res.ok ? "green" : "red";
 
   if (res.ok) setTimeout(() => (window.location.href = "/dashboard"), 1000);
 });

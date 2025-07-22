@@ -13,13 +13,11 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static("public"));
 
-
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
 
-// Authentication Middleware
 const authenticate = (req, res, next) => {
   const token = req.cookies.token;
   if (!token) return res.redirect("/login.html");
@@ -41,7 +39,6 @@ app.get("/dashboard", authenticate, (req, res) => {
   res.sendFile(path.join(__dirname, "public", "dashboard.html"));
 });
 
-
-app.listen(process.env.PORT, () =>
-  console.log(`Server running on http://localhost:${process.env.PORT}`)
+app.listen(process.env.PORT || 3000, () =>
+  console.log(`Server running on http://localhost:${process.env.PORT || 3000}`)
 );

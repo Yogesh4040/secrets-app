@@ -18,9 +18,12 @@ router.post("/register", async (req, res) => {
   }
 
   try {
+    const existing = await User.findOne({ email });
+    if (existing) throw new Error("User exists");
+
     const hashedPassword = await bcrypt.hash(password, 12);
     await User.create({ name, email, password: hashedPassword });
-    res.status(201).json({ message: "Registered" });
+    res.status(201).json({ message: "Registered successfully." });
   } catch {
     res.status(400).json({ message: "User already exists." });
   }
@@ -40,8 +43,8 @@ router.post("/login", async (req, res) => {
   res
     .cookie("token", token, {
       httpOnly: true,
-      secure: false,
       sameSite: "Strict",
+      secure: false,
     })
     .json({ message: "Login successful" });
 });
